@@ -4,16 +4,19 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane prefHeight="600.0" prefWidth="1024" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="de.juljano.denise.NetworkProblemController">
-   <children>
-      <Label alignment="BOTTOM_LEFT" layoutX="292.0" layoutY="203.0" prefHeight="97.0" prefWidth="453.0" text="Verbindungsprobleme">
-         <font>
-            <Font name="System Bold" size="35.0" />
-         </font>
-      </Label>
-      <Label layoutX="294.0" layoutY="302.0" prefHeight="59.0" prefWidth="478.0" text="Das Gerät konnte sich nicht mit den Internet verbinden." />
-      <Label alignment="BOTTOM_LEFT" layoutX="295.0" layoutY="343.0" prefHeight="37.0" prefWidth="446.0" text="Bitte versuche es später erneut." />
-      <Button fx:id="restartButton" layoutX="443.0" layoutY="422.0" mnemonicParsing="false" prefHeight="37.0" prefWidth="104.0" text="Neustart" />
-      <Label prefHeight="70.0" prefWidth="460.0" text="Das Gerät starte in paar Sekunde neu" />
-   </children>
+<AnchorPane prefHeight="600.0" prefWidth="1024" xmlns="http://javafx.com/javafx/17.0.2-ea"
+            xmlns:fx="http://javafx.com/fxml/1" fx:controller="de.juljano.denise.NetworkProblemController">
+   <Label alignment="BOTTOM_LEFT" layoutX="292.0" layoutY="203.0" prefHeight="97.0" prefWidth="453.0"
+          text="Verbindungsprobleme">
+      <font>
+         <Font name="System Bold" size="35.0"/>
+      </font>
+   </Label>
+   <Label layoutX="294.0" layoutY="302.0" prefHeight="59.0" prefWidth="478.0"
+          text="Das Gerät konnte sich nicht mit den Internet verbinden."/>
+   <Label alignment="BOTTOM_LEFT" layoutX="295.0" layoutY="343.0" prefHeight="37.0" prefWidth="446.0"
+          text="Bitte versuche es später erneut."/>
+   <Button fx:id="restartButton" layoutX="443.0" layoutY="422.0" mnemonicParsing="false" prefHeight="37.0"
+           prefWidth="104.0" text="Neustart"/>
+   <Label prefHeight="70.0" prefWidth="460.0" text="Das Gerät starte in paar Sekunde neu"/>
 </AnchorPane>

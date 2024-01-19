@@ -5,6 +5,13 @@ import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
+import java.io.IOException;
+import java.time.LocalDate;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
+import java.util.Date;
+import java.util.IllegalFormatCodePointException;
+
 public class ScreensaverController {
     @FXML
     public Label temperatureLabel;
@@ -25,28 +32,50 @@ public class ScreensaverController {
     private Label authorLabel;
 
 
-    public void setQuoteandAuthor() {
+    void setTimeandDate() throws IOException {
 
+        LocalDate localDate = LocalDate.now();
+        LocalTime localTime = LocalTime.now();
+
+        DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("HH:mm");
+        DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("E, dd. MMM");
+
+        timeLabel.setText(timeFormatter.format(localTime));
+        dateLabel.setText(dateFormatter.format(localDate));
+
+        setWheaterandMoonStatus();
     }
 
-    public void updateGui() {
-
-        QuoteModel quoteModel = new QuoteModel();
-
-
-
-        temperatureLabel.setText("16.45°");
-        timeLabel.setText("22:48");
-        dateLabel.setText("Freitag, 04. Februar");
-
+    void setWheaterandMoonStatus() throws IOException {
+        
+        
+        temperatureLabel.setText("12.34°");
         Image weatherImage = new Image("sunny.png");
         Image moonImage = new Image("moonpartly.png");
         weatherStatus.setImage(weatherImage);
 
         moonStatus.setImage(moonImage);
 
-        qouteLabel.setText(quoteModel.getQoute());
-        authorLabel.setText(quoteModel.getAuthor());
+        setQoute();
+    }
+
+    void setQoute() throws IOException {
+
+        QuoteParser quoteParser = new QuoteParser();
+        quoteParser.parsingQoute();
+
+        QuoteModel quoteModel = QuoteModel.getInstance();
+
+        if (quoteModel.getQoute() != null && quoteModel.getAuthor() != null) {
+
+            qouteLabel.setText(quoteModel.getQoute());
+            authorLabel.setText(quoteModel.getAuthor());
+
+        }
+
+
+
+
     }
 
 

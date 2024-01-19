@@ -4,6 +4,7 @@ module de.juljanno.denise {
 
     requires com.almasb.fxgl.all;
     requires org.jsoup;
+    requires json.simple;
 
     opens de.juljano.denise to javafx.fxml;
     exports de.juljano.denise;

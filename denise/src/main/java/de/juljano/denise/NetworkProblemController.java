@@ -12,15 +12,11 @@ public class NetworkProblemController {
 
 
     public void setRestartButton() {
-        System.out.println("Test");
-
-
 
         //The Device are rebooted to resolve the internet problem
         restartButton.setOnAction(actionEvent -> {
 
             try {
-                System.out.println("Test");
                 Process process = Runtime.getRuntime().exec("sudo reboot");
                 int output = process.waitFor();
                 System.out.println(output);

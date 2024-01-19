@@ -1,7 +1,10 @@
-de/juljano/denise/MainFrameController.class
-de/juljano/denise/QuoteModel.class
-de/juljano/denise/QuoteParser.class
-de/juljano/denise/MainApplication.class
-de/juljano/denise/NetworkProblemController.class
+de\juljano\denise\ScreensaverController.class
+de\juljano\denise\TemperatureSensor.class
+de\juljano\denise\MainApplication.class
+de\juljano\denise\MainFrameController.class
+de\juljano\denise\QuoteModel.class
+de\juljano\denise\QuoteParser.class
 module-info.class
-de/juljano/denise/ScreensaverController.class
+de\juljano\denise\ConnectionTest.class
+de\juljano\denise\FirebaseDatabase.class
+de\juljano\denise\NetworkProblemController.class

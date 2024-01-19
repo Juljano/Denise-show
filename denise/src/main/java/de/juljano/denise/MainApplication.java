@@ -5,34 +5,19 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-
 import java.io.IOException;
-import java.net.URL;
-import java.net.URLConnection;
 
 public class MainApplication extends Application {
 
 
-    private boolean isConnected() {
-        try {
-            URL url = new URL("https://ucupk9inmdhmiuxk.myfritz.net:44218");
-            URLConnection urlConnection = url.openConnection();
-            urlConnection.connect();
-
-            return true;
-
-        } catch (IOException e) {
-
-            return false;
-
-        }
-    }
+    //check the connection to the internet
+    private final ConnectionTest connectionTest = new ConnectionTest();
 
 
     @Override
     public void start(Stage stage) throws IOException {
 
-        if (!isConnected()) {
+        if (!connectionTest.isConnected()) {
             FXMLLoader errorFrame = new FXMLLoader(getClass().getResource("NetworkProblem.fxml"));
             Parent parent = errorFrame.load();
             Scene errorScene = new Scene(parent, 1024, 600);
@@ -52,7 +37,11 @@ public class MainApplication extends Application {
         Stage mainStage = new Stage();
         mainStage.setFullScreen(true);
         mainStage.setScene(secondScene);
-        mainStage.show();*/
+        mainStage.show();
+*/
+
+
+        HttpClient.sendCommand("http://192.168.178.43/relay/0?turn=on");
 
 
         startingScreensaver(stage);
@@ -60,21 +49,25 @@ public class MainApplication extends Application {
 
     }
 
-    public static void main(String[] args) {
-        launch();
-
-    }
 
     private void startingScreensaver(Stage stage) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("screensaver.fxml"));
         Parent parent = fxmlLoader.load();
         Scene scene = new Scene(parent, 1024, 600);
         ScreensaverController screensaverController = fxmlLoader.getController();
-        screensaverController.updateGui();
-        screensaverController.setQuoteandAuthor();
-        stage.setFullScreen(true); // only on raspberry Pi
+        screensaverController.setTimeandDate();
+        //stage.setFullScreen(true); // only on raspberry Pi
         stage.setScene(scene);
         stage.show();
+
+    }
+
+    public static void main(String[] args) {
+        launch();
+
+
+
+
 
     }
 
