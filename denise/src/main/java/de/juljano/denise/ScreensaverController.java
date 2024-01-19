@@ -9,8 +9,6 @@ import java.io.IOException;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
-import java.util.Date;
-import java.util.IllegalFormatCodePointException;
 
 public class ScreensaverController {
     @FXML
