@@ -57,8 +57,10 @@ public class HttpClient {
     private static void setStateofPlug(String stateofPlug) {
 
         if (!stateofPlug.contains("false") && !stateofPlug.isEmpty()) {
+
             System.out.println("Steckdose ist eingeschaltet");
         } else {
+            
             System.out.println("Steckdose ist augeschaltet!");
 
         }

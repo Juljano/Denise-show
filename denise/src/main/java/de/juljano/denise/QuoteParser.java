@@ -5,7 +5,6 @@ import java.io.IOException;
 
 public class QuoteParser {
 
-
     public void parsingQoute() throws IOException {
         ConnectionTest connectionTest = new ConnectionTest();
 
