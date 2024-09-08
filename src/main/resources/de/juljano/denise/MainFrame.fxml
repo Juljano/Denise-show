@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane prefHeight="593.0" prefWidth="1024" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="de.juljano.denise.MainFrameController">
+    <!-- ImageView -->
+    <ImageView fx:id="slideShowImageview" fitHeight="614.0" fitWidth="388.0" pickOnBounds="true" preserveRatio="true" />
+
+    <!-- Label für "Chefkoch Rezept der Woche" -->
+    <Label alignment="CENTER" layoutX="9.0" layoutY="367.0" prefHeight="96.0" prefWidth="373.0" text="Chefkoch Rezept der Woche" textFill="Black">
+        <font>
+            <Font name="DejaVuMathTeXGyre-Regular" size="22.0" />
+        </font>
+    </Label>
+
+    <!-- VBox für Uhrzeit, Datum und Label -->
+    <VBox layoutX="14.0" layoutY="14.0" prefHeight="140.0" prefWidth="355.0" spacing="10">
+        <Label fx:id="timeLabel" prefHeight="66.0" prefWidth="184.0" text="22:40" textFill="Black">
+            <font>
+                <Font name="System Bold" size="50.0" />
+            </font>
+        </Label>
+        <Label prefHeight="31.0" prefWidth="277.0" text="Montag, 24. Dezember 2024" textFill="Black">
+            <font>
+                <Font size="14.0" />
+            </font>
+        </Label>
+    </VBox>
+
+    <!-- SplitPane mit ListView -->
+    <SplitPane layoutX="386.0" prefHeight="347.0" prefWidth="639.0">
+        <!-- ListView -->
+        <ListView fx:id="listView" prefHeight="347.0" prefWidth="200.0">
+            <!-- Ihre Listenelemente hier -->
+        </ListView>
+
+        <!-- Inhalte des zweiten Teils des SplitPane -->
+        <!-- Fügen Sie hier weitere Inhalte hinzu, wenn nötig -->
+    </SplitPane>
+</AnchorPane>
