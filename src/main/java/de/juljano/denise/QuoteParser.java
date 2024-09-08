@@ -1,12 +1,10 @@
 package de.juljano.denise;
 
+import javafx.application.Platform;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 
 import java.io.IOException;
-
-import static de.juljano.denise.setQuote.updateQuote;
-
 public class QuoteParser {
 
     public static void parsingQoute() {
@@ -50,32 +48,26 @@ public class QuoteParser {
         }
 
 
-        }
-
-
-        public static void updateQuote() {
-
-
-            QuoteModel quoteModel = QuoteModel.getInstance();
-
-            if (quoteModel.getQoute() != null && quoteModel.getAuthor() != null) {
-
-                ScreensaverController screensaverController = MainApplication.getScreensaver();
-
-                if (screensaverController != null) {
-
-                    screensaverController.updateQuotes(quoteModel.getQoute(), quoteModel.getAuthor());
-
-                } else {
-
-                    System.out.println("Controller is empty");
-                }
-
-            }
-
-
-        }
-
     }
 
 
+    public static void updateQuote() {
+        QuoteModel quoteModel = QuoteModel.getInstance();
+
+        if (quoteModel.getQoute() != null && quoteModel.getAuthor() != null) {
+            ScreensaverController screensaverController = MainApplication.getScreensaver();
+
+            if (screensaverController != null) {
+                Platform.runLater(() -> {
+                   // screensaverController.updateQuotes(quoteModel.getQoute(), quoteModel.getAuthor());
+                    screensaverController.quoteLabel.setText(quoteModel.getQoute());
+                    screensaverController.authorLabel.setText(quoteModel.getQoute());
+                });
+            } else {
+                System.out.println("Controller is empty");
+            }
+        } else {
+            System.out.println("Quote or author is null");
+        }
+    }
+}

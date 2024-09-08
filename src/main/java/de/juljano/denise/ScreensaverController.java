@@ -21,7 +21,7 @@ public class ScreensaverController {
     @FXML
     public ImageView moonStatus;
     @FXML
-    public Label qouteLabel;
+    public Label quoteLabel;
     @FXML
     public Label authorLabel;
     @FXML
@@ -57,9 +57,13 @@ public class ScreensaverController {
         moonStatus.setImage(moonImage);
     }
 
-    public void updateQuotes(String quote, String author) {
-        qouteLabel.setText(quote);
-        authorLabel.setText(author);
+    public void updateQuotes() {
+        QuoteModel quoteModel = QuoteModel.getInstance();
 
-    }
+        if (quoteModel != null){
+            quoteLabel.setText(quoteModel.getQoute());
+            authorLabel.setText(quoteModel.getAuthor());
+        }
+
+}
 }

@@ -61,10 +61,13 @@ public class MainApplication extends Application {
                                     Platform.runLater(new Runnable() {
                                         @Override
                                         public void run() {
+
                                             updateData();
+                                            System.out.println("Ausgeführt");
                                         }
                                     });
                                 }
+
 
                             }, updateInterval);
 
@@ -109,6 +112,7 @@ public class MainApplication extends Application {
         Parent parent = fxmlLoader.load();
         screensaverController = fxmlLoader.getController(); // Aktualisiere die statische Controller-Referenz
         screensaverController.setTimeAndDate();
+        screensaverController.updateQuotes();
         Scene screenSaver = stage.getScene();
 
         if (screenSaver == null) {
@@ -128,7 +132,6 @@ public class MainApplication extends Application {
         QuoteParser.parsingQoute();
         Sun.getSunInfo();
         FuelPriceChecker.getPetrolPrice();
-
     }
 
     public static void main(String[] args) {
