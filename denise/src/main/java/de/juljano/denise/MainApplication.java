@@ -41,7 +41,7 @@ public class MainApplication extends Application {
 */
 
 
-        HttpClient.sendCommand("http://192.168.178.43/relay/0?turn=on");
+        HttpClient.sendCommand("http://192.168.178.43/relay/0?turn=off");
 
 
         startingScreensaver(stage);
@@ -56,7 +56,7 @@ public class MainApplication extends Application {
         Scene scene = new Scene(parent, 1024, 600);
         ScreensaverController screensaverController = fxmlLoader.getController();
         screensaverController.setTimeandDate();
-        //stage.setFullScreen(true); // only on raspberry Pi
+        stage.setFullScreen(true); // only on raspberry Pi
         stage.setScene(scene);
         stage.show();
 

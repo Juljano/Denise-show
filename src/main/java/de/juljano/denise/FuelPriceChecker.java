@@ -4,7 +4,6 @@ import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
-
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
@@ -17,11 +16,11 @@ public class FuelPriceChecker {
     public static void getPetrolPrice() {
         try {
             Document document = Jsoup.connect(websiteOfStation).get();
-            Elements tankstellenLinks = document.select("a[href]");
+            Elements gasStationLinks= document.select("a[href]");
 
             Map<String, Double> petrolPrices = new HashMap<>();
 
-            for (Element link : tankstellenLinks) {
+            for (Element link : gasStationLinks) {
                 // Extrahiere die ID aus dem href-Attribut
                 String href = link.attr("href");
                 String id = href.replaceAll("/tankstelle_details/", "").trim();
@@ -57,7 +56,7 @@ public class FuelPriceChecker {
 
             // Bestimme die günstigste Tankstelle nach dem Schleifendurchlauf
             String cheapestStation = getCheapestPetrol(petrolPrices);
-            System.out.printf("Die günstigste Tankstelle ist '%s' mit einem Preis von %.2f%n",
+            System.out.printf("Die günstigste Tankstelle ist '%s' mit einem Preis von %.2f%n€",
                     cheapestStation, petrolPrices.get(cheapestStation));
 
         } catch (IOException e) {

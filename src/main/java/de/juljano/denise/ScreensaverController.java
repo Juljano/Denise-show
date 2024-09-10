@@ -30,10 +30,6 @@ public class ScreensaverController {
     public ScreensaverController() {
     }
 
-    @FXML
-    private void initialize() {
-        setTimeAndDate();
-    }
 
     void setTimeAndDate() {
         LocalDate localDate = LocalDate.now();
@@ -48,8 +44,15 @@ public class ScreensaverController {
         setWeatherAndMoonStatus();
     }
 
+    public void setTemperature(String temperature){
+        if (temperature != null){
+            temperatureLabel.setText(temperature);
+        }else{
+            System.out.println("No input");
+        }
+    }
+
     void setWeatherAndMoonStatus() {
-        temperatureLabel.setText("12.34°");
         Image weatherImage = new Image("sunny.png");
         Image moonImage = new Image("moonpartly.png");
         weatherStatus.setImage(weatherImage);

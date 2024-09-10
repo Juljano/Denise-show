@@ -7,7 +7,6 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-
 import java.io.IOException;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -63,11 +62,9 @@ public class MainApplication extends Application {
                                         public void run() {
 
                                             updateData();
-                                            System.out.println("Ausgeführt");
                                         }
                                     });
                                 }
-
 
                             }, updateInterval);
 
@@ -129,9 +126,15 @@ public class MainApplication extends Application {
     }
 
     private void updateData() {
+        Seeing seeing = new Seeing();
+        seeing.getSeeing();
         QuoteParser.parsingQoute();
         Sun.getSunInfo();
-        FuelPriceChecker.getPetrolPrice();
+        //FuelPriceChecker.getPetrolPrice();
+        TemperatureSensor temperatureSensor = new TemperatureSensor();
+        temperatureSensor.startPythonScript();
+        WeatherStation.getWeatherData();
+
     }
 
     public static void main(String[] args) {

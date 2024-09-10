@@ -7,6 +7,7 @@ module de.juljanno.denise {
     requires json.simple;
     requires java.prefs;
     requires java.desktop;
+    requires java.sql;
 
     opens de.juljano.denise to javafx.fxml;
     exports de.juljano.denise;

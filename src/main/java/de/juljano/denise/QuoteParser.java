@@ -3,8 +3,8 @@ package de.juljano.denise;
 import javafx.application.Platform;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
-
 import java.io.IOException;
+
 public class QuoteParser {
 
     public static void parsingQoute() {
@@ -14,23 +14,26 @@ public class QuoteParser {
 
             if (ConnectionTest.isConnected()) {
 
-                Document document = Jsoup.connect("https://www.zitate-online.de/zufallszitat.txt.php").get();
-                String getAuthorandQuote = document.select("#zufallszitat").first().text();
+                Document document = Jsoup.connect("https://zitate-aphorismen.de/zufallszitat.php").get();
+                //   String getAuthorandQuote = document.select("#zufallszitat").first().text();
 
-                if (!getAuthorandQuote.isEmpty()) {
+                String getQuote = document.select("div.tageszitat").text();
+                String getAuthor = document.select("span.autor_in").text();
+                //remove author from Quote
+                getQuote = getQuote.substring(0, getQuote.indexOf(getAuthor)).trim();
 
-                    String[] split = getAuthorandQuote.split(":", 2);
 
-                    String getAuthor = split[0];
-                    String getQuote = split[1];
+                if (!getQuote.isEmpty() || !getAuthor.isEmpty()) {
 
-                    int index = getQuote.indexOf("“");
+                    System.out.println("Zitat " + getQuote);
+                    System.out.println("Autor " + getAuthor);
 
-                    if (index != -1) {
-                        getQuote = getQuote.substring(0, index).trim();
-                        System.out.println(getQuote);
+                    // if Quote is too long, then reload parsingQoute again
+                    if (!QuoteLength(getQuote)){
+                        System.out.println("Quote too long");
+                        parsingQoute();
+                        return;
                     }
-
                     //set the Author and Quote in @QuoteModel
                     QuoteModel quoteModel = QuoteModel.getInstance();
                     quoteModel.setQoute(getQuote);
@@ -59,7 +62,7 @@ public class QuoteParser {
 
             if (screensaverController != null) {
                 Platform.runLater(() -> {
-                   // screensaverController.updateQuotes(quoteModel.getQoute(), quoteModel.getAuthor());
+                    // screensaverController.updateQuotes(quoteModel.getQoute(), quoteModel.getAuthor());
                     screensaverController.quoteLabel.setText(quoteModel.getQoute());
                     screensaverController.authorLabel.setText(quoteModel.getQoute());
                 });
@@ -69,5 +72,11 @@ public class QuoteParser {
         } else {
             System.out.println("Quote or author is null");
         }
+    }
+
+    public static boolean QuoteLength(String lengthOfQuote) {
+
+        return lengthOfQuote.length() <= 100;
+
     }
 }
