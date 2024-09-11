@@ -67,7 +67,6 @@ public class Sun {
 
     private static void Convert12hTo24h(String sunrise, String sunset) {
 
-        String time12Hour = sunset;
 
         // Definiere die Formatierung des 12-Stunden-Formats
         DateTimeFormatter formatter12Hour = DateTimeFormatter.ofPattern("h:mm:ss a");
