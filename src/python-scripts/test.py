@@ -1,4 +1,4 @@
 # -*- coding: utf-8 -*-
 
-print("10.90°C")
-print("Luftfeuchtigkit: 48.70%")
+print("30.90°C")
+print("Luftfeuchtigkit: 78.70%")

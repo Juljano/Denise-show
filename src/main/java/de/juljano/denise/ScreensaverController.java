@@ -4,7 +4,6 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
@@ -44,11 +43,12 @@ public class ScreensaverController {
         setWeatherAndMoonStatus();
     }
 
-    public void setTemperature(String temperature){
-        if (temperature != null){
-            temperatureLabel.setText(temperature);
+    public void setTemperature(){
+
+        if (TemperatureSensor.getTemperature() != null){
+            temperatureLabel.setText(TemperatureSensor.getTemperature()+"°C");
         }else{
-            System.out.println("No input");
+            temperatureLabel.setText("No temp");
         }
     }
 

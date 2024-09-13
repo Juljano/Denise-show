@@ -7,6 +7,8 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
+
 import java.io.IOException;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -15,16 +17,30 @@ public class MainApplication extends Application {
 
     private AnimationTimer animationTimer;
     private final long timerInterval = 5 * 1_000_000_000L; // 5 Second
-    private final long updateInterval = 10L * 60 * 1_000_000_000L; //10 Minutes
+    private final long updateInterval = 10L * 60 * 1_000; //10 Minutes 10L * 60 * 1_000_000_000L;
     private long lastTimerCall = 0;
-    private boolean firstStart = true;
-
     private static ScreensaverController screensaverController;
-
+    private final Seeing seeing = new Seeing();
+    private final TemperatureSensor temperatureSensor = new TemperatureSensor();
+    private Timer updateTimer;
     @Override
     public void start(Stage stage) {
 
+        //fullscreen without Menubar
+        stage.setFullScreen(true);
+        stage.initStyle(StageStyle.UNDECORATED);
+
         lastTimerCall = System.nanoTime();
+
+
+        updateTimer = new Timer();
+        updateTimer.scheduleAtFixedRate(new TimerTask() {
+            @Override
+            public void run() {
+                Platform.runLater(() -> updateData());
+            }
+        }, 0,updateInterval);
+
 
         animationTimer = new AnimationTimer() {
             @Override
@@ -48,26 +64,6 @@ public class MainApplication extends Application {
                         try {
                             startingScreensaver(stage);
 
-                            if (firstStart){
-                                updateData();
-                                firstStart = false;
-                            }
-
-                            Timer timer = new Timer();
-                            timer.schedule(new TimerTask() {
-                                @Override
-                                public void run() {
-                                    Platform.runLater(new Runnable() {
-                                        @Override
-                                        public void run() {
-
-                                            updateData();
-                                        }
-                                    });
-                                }
-
-                            }, updateInterval);
-
                         } catch (IOException e) {
                             e.printStackTrace();
                         }
@@ -79,11 +75,14 @@ public class MainApplication extends Application {
         animationTimer.start();
 
 
+
     }
 
     @Override
     public void stop() {
         animationTimer.stop();
+        updateTimer.cancel(); // Stoppe den Timer
+
     }
 
     private void startingHomeScreen(Stage stage) throws IOException {
@@ -92,6 +91,7 @@ public class MainApplication extends Application {
         MainFrameController mainFrameController = mainFrameLoader.getController();
         mainFrameController.setSlideShowImageview();
         mainFrameController.listview();
+
 
         Scene homeScreen = stage.getScene();
         if (homeScreen == null) {
@@ -110,6 +110,9 @@ public class MainApplication extends Application {
         screensaverController = fxmlLoader.getController(); // Aktualisiere die statische Controller-Referenz
         screensaverController.setTimeAndDate();
         screensaverController.updateQuotes();
+        screensaverController.setTemperature();
+
+
         Scene screenSaver = stage.getScene();
 
         if (screenSaver == null) {
@@ -126,14 +129,13 @@ public class MainApplication extends Application {
     }
 
     private void updateData() {
-        Seeing seeing = new Seeing();
         seeing.getSeeing();
         QuoteParser.parsingQoute();
         Sun.getSunInfo();
         //FuelPriceChecker.getPetrolPrice();
-        TemperatureSensor temperatureSensor = new TemperatureSensor();
         temperatureSensor.startPythonScript();
         WeatherStation.getWeatherData();
+        temperatureSensor.startPythonScript();
 
     }
 

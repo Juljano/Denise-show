@@ -6,8 +6,15 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 public class TemperatureSensor {
+   private static String temperature;
 
+   public static String getTemperature() {
+      return temperature;
+   }
 
+   public static void setTemperature(String temperature) {
+      TemperatureSensor.temperature = temperature;
+   }
 
    public void startPythonScript(){
       String output;
@@ -15,7 +22,7 @@ public class TemperatureSensor {
 
       try {
           // starting python-script to read DHT22 sensor
-         Process process = Runtime.getRuntime().exec("python src/python-scripts/test.py");
+         Process process = Runtime.getRuntime().exec("python3 readDHT22.py");
          BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(process.getInputStream()));
 
          BufferedReader bufferedReaderError = new BufferedReader(new InputStreamReader(process.getErrorStream()));
@@ -27,9 +34,12 @@ public class TemperatureSensor {
              int parts = stringBuilder.indexOf("°C");
 
             if (parts != -1){
-               String temperature = stringBuilder.substring(0, parts).trim();
+               temperature = stringBuilder.substring(0, parts).trim();
+               System.out.println("DHT-Sensor: " + temperature);
 
-               updateTemperatureLabel(temperature);
+
+               updateTemperatureLabel();
+
             }
 
          }
@@ -47,14 +57,17 @@ public class TemperatureSensor {
    }
 
 
-   public static void updateTemperatureLabel(String temperature){
+   public static void updateTemperatureLabel(){
+
       ScreensaverController screensaverController = MainApplication.getScreensaver();
 
-      if (screensaverController != null){
-
+      if (screensaverController != null) {
          Platform.runLater(() -> {
-            screensaverController.setTemperature(temperature+"°C");
+            TemperatureSensor.setTemperature(temperature);
+            //screensaverController.setTemperature(temperature);
          });
+      } else {
+         System.out.println("Controller is empty - ");
       }
 
    }

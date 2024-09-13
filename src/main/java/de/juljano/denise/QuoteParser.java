@@ -67,7 +67,7 @@ public class QuoteParser {
                     screensaverController.authorLabel.setText(quoteModel.getQoute());
                 });
             } else {
-                System.out.println("Controller is empty");
+                System.out.println("Controller is empty - QuoteParser");
             }
         } else {
             System.out.println("Quote or author is null");
